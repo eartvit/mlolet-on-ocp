@@ -1,0 +1,224 @@
+﻿apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: lt-summary
+  namespace: demo
+spec:
+  params:
+    - default: >-
+        http://influxdb.demo.svc.cluster.local:8086/write?db=loadtesting&precision=s&user=root&p=root
+      name: influxDBURL
+      type: string
+    - default: '1'
+      name: ltTargetSize
+      type: string
+    - default: '200'
+      name: cThreads
+      type: string
+    - default: '200'
+      name: jacptThreads
+      type: string
+    - default: '1000'
+      name: jacptQSize
+      type: string
+    - default: 'true'
+      name: asyncResp
+      type: string
+    - default: '15'
+      name: asyncRespThreads
+      type: string
+    - default: '1'
+      name: cpuLimit
+      type: string
+    - default: 2Gi
+      name: memoryLimit
+      type: string
+    - default: 500m
+      name: cpuRequest
+      type: string
+    - default: 1Gi
+      name: memoryRequest
+      type: string
+    - default: '10'
+      name: ltReqPayloadSizeFactor
+      type: string
+    - default: '0'
+      name: levelsDeep
+      type: string
+    - default: 'false'
+      name: traceActive
+      type: string
+  steps:
+    - image: registry.redhat.io/openshift4/ose-tools-rhel8
+      name: get-lt-summary-to-influxdb
+      resources: {}
+      script: >
+        #!/usr/bin/env bash
+
+        POD_NAME=$(oc get pods -l app=load-generator -o
+        jsonpath="{.items[-1:].metadata.name}"
+        --field-selector=status.phase==Succeeded --sort-by=.status.startTime)
+
+        echo Pod name: $POD_NAME 
+
+        POD_STARTED_AT=$(oc get pod/$POD_NAME -o
+        jsonpath="{.status.containerStatuses[].state.terminated.startedAt}")
+
+        echo Pod started at: $POD_STARTED_AT 
+
+        POD_FINISHED_AT=$(oc get pod/$POD_NAME -o
+        jsonpath="{.status.containerStatuses[].state.terminated.finishedAt}")
+
+        echo Pod finished at: $POD_FINISHED_AT
+
+        POD_LOGS=$(oc logs --tail 2 pod/$POD_NAME)
+
+        if [ $(echo $(inputs.params.traceActive) | tr -s [:upper:] [:lower:]) =
+        'false' ]; then
+
+          echo Trace is inactive, extracting full log from load-generator pod.
+
+          POD_LOGS=$(oc logs pod/$POD_NAME)
+
+        fi
+
+        NUM_CONN=$(echo $POD_LOGS | jq '.LoadTestParams.Connections' | tr -d
+        '"')  
+
+        echo Num Conn: $NUM_CONN
+
+        TEST_DURATION_SEC=$(echo $POD_LOGS | jq
+        '.LoadTestParams.LoadDurationSeconds' | tr -d '"') 
+
+        echo Test duration secs: $TEST_DURATION_SEC
+
+        TIMEOUT_SEC=$(echo $POD_LOGS | jq '.LoadTestParams.ReqTimeoutSeconds' |
+        tr -d '"')  
+
+        echo Timeout seconds: $TIMEOUT_SEC
+
+        THREADSLEEPMS=$(echo $POD_LOGS | jq '.LoadTestParams.ThreadSleepMS' | tr
+        -d '"')  
+
+        echo Thread sleep MS: $THREADSLEEPMS
+
+        RANDOMPAYLOAD=$(echo $POD_LOGS | jq '.LoadTestParams.RandomPayload' | tr
+        -d '"')  
+
+        echo Random payload: $RANDOMPAYLOAD
+
+        REQUESTPAYLOADS=$(echo $POD_LOGS | jq '.LoadTestParams.RequestPayloads'|
+        tr -d '"')  
+
+        echo Number of request payloads: $REQUESTPAYLOADS
+
+        PAYLOADSIZES=() 
+
+        for n in $(seq $REQUESTPAYLOADS) 
+
+        do
+            SIZESTR=$(echo $POD_LOGS | jq '.LoadTestParams.PayloadSize'$n)
+
+            SIZE=$(echo "$SIZESTR" | tr -d '"')
+
+            echo Iteration $n payload size is $SIZE
+
+            PAYLOADSIZES+=$SIZE
+
+            if [ $n -lt $REQUESTPAYLOADS ]
+
+            then
+
+                PAYLOADSIZES+=,
+
+            fi
+
+        done 
+
+        echo The payload sizes array is: $PAYLOADSIZES
+
+        REQ_1XX=$(echo $POD_LOGS | jq '.MessageStats.Total1xxResponses' | tr -d
+        '"')  
+
+        echo REQ_1XX: $REQ_1XX
+
+        REQ_2XX=$(echo $POD_LOGS | jq '.MessageStats.Total2xxResponses' | tr -d
+        '"')  
+
+        echo REQ_2XX: $REQ_2XX
+
+        REQ_3XX=$(echo $POD_LOGS | jq '.MessageStats.Total3xxResponses' | tr -d
+        '"')  
+
+        echo REQ_3XX: $REQ_3XX
+
+        REQ_4XX=$(echo $POD_LOGS | jq '.MessageStats.Total4xxResponses' | tr -d
+        '"')  
+
+        echo REQ_4XX: $REQ_4XX
+
+        REQ_5XX=$(echo $POD_LOGS | jq '.MessageStats.Total5xxResponses' | tr -d
+        '"')  
+
+        echo REQ_5XX: $REQ_5XX
+
+        REQ_OTHERS=$(echo $POD_LOGS | jq '.MessageStats.TotalOtherResponses' |
+        tr -d '"')  
+
+        echo REQ_OTHERS: $REQ_OTHERS
+
+        AVG_LATENCY=$(echo $POD_LOGS | jq '.MessageStats.AvgLatencyMSRounded' |
+        tr -d '"')  
+
+        echo Average latency: $AVG_LATENCY 
+
+        MIN_LATENCY=$(echo $POD_LOGS | jq '.MessageStats.MinLatencyMSRounded' |
+        tr -d '"')  
+
+        echo Min latency: $MIN_LATENCY 
+
+        MAX_LATENCY=$(echo $POD_LOGS | jq '.MessageStats.MaxLatencyMSRounded' |
+        tr -d '"')  
+
+        echo Max latency: $MAX_LATENCY 
+
+        TOTAL_MSG=$(echo $POD_LOGS | jq '.MessageStats.TotalMessages' | tr -d
+        '"') 
+
+        echo Total number of messages: $TOTAL_MSG
+
+        LT_START=$(echo $POD_LOGS | jq '.LoadTestStart') 
+
+        LT_START=${LT_START// /T} 
+
+        LT_START=$(echo $LT_START | tr -d '"') 
+
+        echo Load test start time: $LT_START
+
+        LT_STOP=$(echo $POD_LOGS | jq '.LoadTestStop') 
+
+        LT_STOP=${LT_STOP// /T}
+
+        LT_STOP=$(echo $LT_STOP | tr -d '"') 
+
+        echo Load test stop time: $LT_STOP
+
+        LT_START_TIMESTAMP=$(date -d $LT_START +%s) 
+
+        echo Load test start timestamp: $LT_START_TIMESTAMP
+
+        LT_STOP_TIMESTAMP=$(date -d ${LT_STOP} +%s) 
+
+        echo Load test stop timestamp: $LT_STOP_TIMESTAMP
+
+        POD_START_TIMESTAMP=$(date -d $POD_STARTED_AT +%s) 
+
+        echo Pod started at timestamp: $POD_START_TIMESTAMP 
+
+        POD_FINISHED_TIMESTAMP=$(date -d $POD_FINISHED_AT +%s) 
+
+        echo Pod finished at timestamp: $POD_FINISHED_TIMESTAMP
+
+        curl -v --data-binary 'lt_result
+        numConnections='$NUM_CONN',testDurationSeconds='$TEST_DURATION_SEC',levelsDeep=$(inputs.params.levelsDeep),ltTargetSize=$(inputs.params.ltTargetSize),cThreads=$(inputs.params.cThreads),jacptThreads=$(inputs.params.jacptThreads),jacptQSize=$(inputs.params.jacptQSize),asyncResp='$(inputs.params.asyncResp)',asyncRespThreads=$(inputs.params.asyncRespThreads),timeoutSeconds='$TIMEOUT_SEC',threadSleepMS='$THREADSLEEPMS',randPayload="'$RANDOMPAYLOAD'",reqPayloads='$REQUESTPAYLOADS',payloadSizes="'$PAYLOADSIZES'",req1xx='$REQ_1XX',req2xx='$REQ_2XX',req3xx='$REQ_3XX',req4xx='$REQ_4XX',req5xx='$REQ_5XX',others='$REQ_OTHERS',avgLatency='$AVG_LATENCY',minLatency='$MIN_LATENCY',maxLatency='$MAX_LATENCY',totalMsg='$TOTAL_MSG',ltStartTime="'$LT_START'",ltStopTime="'$LT_STOP'",ltStartTS='$LT_START_TIMESTAMP',ltStopTS='$LT_STOP_TIMESTAMP',podStartTime='$POD_START_TIMESTAMP',podStopTime='$POD_FINISHED_TIMESTAMP',cpuLimit="$(inputs.params.cpuLimit)",memoryLimit="$(inputs.params.memoryLimit)",cpuRequest="$(inputs.params.cpuRequest)",memoryRequest="$(inputs.params.memoryRequest)"'
+        '$(inputs.params.influxDBURL)'

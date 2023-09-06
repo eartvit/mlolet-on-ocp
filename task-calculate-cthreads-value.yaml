@@ -1,0 +1,23 @@
+﻿apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: calculate-cthreads-value-task
+  namespace: demo
+spec:
+  params:
+    - default: '1'
+      name: inputNumber
+      type: string
+  results:
+    - description: Generated CTHREADS number
+      name: cthreadsNum
+      type: string
+  steps:
+    - image: registry.redhat.io/ubi7/ubi-minimal
+      name: calculate-cthreads-value
+      resources: {}
+      script: >
+        #!/usr/bin/env bash
+
+        echo $(( $(inputs.params.inputNumber) + 15 )) | tr -d '\n' | tee
+        $(results.cthreadsNum.path)

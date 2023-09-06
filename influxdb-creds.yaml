@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: influxdb-creds
+  namespace: demo
+type: Opaque
+stringData:
+  INFLUXDB_DATABASE: loadtesting
+  INFLUXDB_HOST: influxdb
+  INFLUXDB_PASSWORD: root
+  INFLUXDB_USERNAME: root
+

@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: generate-random-integer-list-python
+  namespace: demo
+spec:
+  params:
+    - default: '10'
+      name: lowerBound
+      type: string
+    - default: '100'
+      name: upperBound
+      type: string
+    - default: '3'
+      name: listLength
+      type: string
+  results:
+    - description: Generated random integer list
+      name: randList
+  steps:
+    - image: registry.access.redhat.com/ubi9/python-311
+      name: generate-rand-int-list-python
+      resources: {}
+      script: |
+        #!/usr/bin/env python3
+
+        import random
+        import subprocess
+
+        upperBound = $(inputs.params.upperBound)
+        lowerBound = $(inputs.params.lowerBound)
+        listLength = $(inputs.params.listLength)
+        randList = []
+        print(f'Generating a random integer list of length {listLenght} between {lowerBound} and {upperBound}...')
+        for i in range(listLength):          
+          randResult = random.randint(lowerBound, upperBound)
+          randList.append(randResult)
+          print(f'Added {randResult} to the list.')
+
+        delim=","
+        res = delim.join(map(str, randList))
+
+        with open('$(results.randList.path)', 'w') as f:
+          f.write(f'{res}')
+          f.close()
+        
+        print(f'Wrote {res} to $(results.randList.path)')

@@ -1,0 +1,36 @@
+﻿apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: wiremock-cleanup-task
+  namespace: demo
+spec:
+  params:
+    - default: wiremock-metrics
+      name: appLabel
+      type: string
+    - default: '1'
+      name: deepLevel
+      type: string
+  steps:
+    - image: registry.redhat.io/openshift4/ose-cli
+      name: wiremock-cleanup
+      resources: {}
+      script: |
+        #!/usr/bin/env bash
+
+        echo 'Waiting 60s before cleanup'
+
+        sleep 60
+
+        for n in $(seq $(($(inputs.params.deepLevel)+1)))
+
+        do
+
+          echo Deleting resources for $(inputs.params.appLabel)-$n
+
+          oc delete deployment,services -l app=$(inputs.params.appLabel)-$n
+
+        done
+
+
+        sleep 10

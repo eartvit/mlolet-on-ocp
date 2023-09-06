@@ -1,0 +1,33 @@
+﻿apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: scale-deployment-task
+  namespace: demo
+spec:
+  params:
+    - name: deploymentName
+      type: string
+    - default: '1'
+      name: size
+      type: string
+    - default: '1'
+      name: deepLevel
+      type: string
+  steps:
+    - image: registry.redhat.io/openshift4/ose-cli
+      name: scale-deployment
+      resources: {}
+      script: |
+        #!/usr/bin/env bash
+
+        for n in $(seq $(($(inputs.params.deepLevel)+1)))
+
+        do
+
+          echo Scaling pods for $(inputs.params.deploymentName)-$n to $(inputs.params.size)
+
+          oc scale --replicas=$(inputs.params.size) deployment/$(inputs.params.deploymentName)-$n
+
+        done
+
+        sleep 10

@@ -1,0 +1,138 @@
+﻿apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: wiremock-metrics-deploy-task
+  namespace: demo
+spec:
+  params:
+    - default: 'false'
+      name: TRACEACTIVE
+      type: string
+    - default: '8080'
+      name: WIREMOCKPORT
+      type: string
+    - default: '9090'
+      name: PROMETHEUSPORT
+      type: string
+    - default: '100'
+      name: DELAYLOWERBOUNDMS
+      type: string
+    - default: '300'
+      name: DELAYUPPERBOUNDMS
+      type: string
+    - default: '0'
+      name: DEEP_LEVEL
+      type: string
+    - default: 'http://wiremock-metrics-{n}.demo.svc.cluster.local:8080/mock'
+      name: DEEP_ENDPOINT
+      type: string
+    - default: '125'
+      name: CONTAINERTHREADS
+      type: string
+    - default: '110'
+      name: JETTYACCEPTORS
+      type: string
+    - default: '1000'
+      name: JETTYACCEPTORSQSIZE
+      type: string
+    - default: 'true'
+      name: ASYNCRESPENABLED
+      type: string
+    - default: '25'
+      name: ASYNCRESPTHREADS
+      type: string
+    - default: '1'
+      name: cpuLimit
+      type: string
+    - default: 2Gi
+      name: memoryLimit
+      type: string
+    - default: 500m
+      name: cpuRequest
+      type: string
+    - default: 1Gi
+      name: memoryRequest
+      type: string
+  steps:
+    - image: registry.redhat.io/openshift4/ose-cli
+      name: wiremock-metrics-deployment
+      resources: {}
+      script: |
+        #!/usr/bin/env bash
+
+        echo Depth level set to $(inputs.params.DEEP_LEVEL)
+
+        if [ $(inputs.params.DEEP_LEVEL) -gt 0 ]
+
+        then
+
+          echo Preparing to deploy $(inputs.params.DEEP_LEVEL) wiremock services
+
+          for level in $(seq $(inputs.params.DEEP_LEVEL))
+
+          do
+
+            next_level=$(($level+1))
+
+            CRT_DEEP_ENDPOINT=$(echo $(inputs.params.DEEP_ENDPOINT) | sed "s|{n}|$next_level|g")
+
+            echo 'Next level endpoint: ' $CRT_DEEP_ENDPOINT
+
+            oc new-app --image=quay.io/avitui/wiremock-metrics:v1 \
+                        --name=wiremock-metrics-$level --labels=app=wiremock-metrics-$level \
+                        -e TRACEACTIVE=$(inputs.params.TRACEACTIVE) \
+                        -e WIREMOCKPORT=$(inputs.params.WIREMOCKPORT) -e PROMETHEUSPORT=$(inputs.params.PROMETHEUSPORT) \
+                        -e DELAYLOWERBOUNDMS=$(inputs.params.DELAYLOWERBOUNDMS) -e ASYNCRESPTHREADS=$(inputs.params.DELAYUPPERBOUNDMS) \
+                        -e DEEP_LEVEL=$level -e DEEP_ENDPOINT=$CRT_DEEP_ENDPOINT \
+                        -e CONTAINERTHREADS=$(inputs.params.CONTAINERTHREADS) \
+                        -e JETTYACCEPTORS=$(inputs.params.JETTYACCEPTORS) -e JETTYACCEPTORSQSIZE=$(inputs.params.JETTYACCEPTORSQSIZE) \
+                        -e ASYNCRESPENABLED=$(inputs.params.ASYNCRESPENABLED) -e ASYNCRESPTHREADS=$(inputs.params.ASYNCRESPTHREADS)                    
+
+            oc set resources deployment/wiremock-metrics-$level \
+                        --limits=cpu=$(inputs.params.cpuLimit),memory=$(inputs.params.memoryLimit) \
+                        --requests=cpu=$(inputs.params.cpuRequest),memory=$(inputs.params.memoryRequest) 
+
+            oc patch svc wiremock-metrics-$level -p '{"spec": {"ports": [{"name":"9090-tcp", "port": 9090, "targetPort": 9090}]}}'
+
+          done
+
+          echo "Deploying final layer number:" $next_level
+
+          oc new-app --image=quay.io/avitui/wiremock-metrics:v1 \
+                      --name=wiremock-metrics-$next_level --labels=app=wiremock-metrics-$next_level \
+                      -e TRACEACTIVE=$(inputs.params.TRACEACTIVE) \
+                      -e WIREMOCKPORT=$(inputs.params.WIREMOCKPORT) -e PROMETHEUSPORT=$(inputs.params.PROMETHEUSPORT) \
+                      -e DELAYLOWERBOUNDMS=$(inputs.params.DELAYLOWERBOUNDMS) -e ASYNCRESPTHREADS=$(inputs.params.DELAYUPPERBOUNDMS) \
+                      -e DEEP_LEVEL=0 \
+                      -e CONTAINERTHREADS=$(inputs.params.CONTAINERTHREADS) \
+                      -e JETTYACCEPTORS=$(inputs.params.JETTYACCEPTORS) -e JETTYACCEPTORSQSIZE=$(inputs.params.JETTYACCEPTORSQSIZE) \
+                      -e ASYNCRESPENABLED=$(inputs.params.ASYNCRESPENABLED) -e ASYNCRESPTHREADS=$(inputs.params.ASYNCRESPTHREADS)                    
+
+          oc set resources deployment/wiremock-metrics-$next_level \
+                      --limits=cpu=$(inputs.params.cpuLimit),memory=$(inputs.params.memoryLimit) \
+                      --requests=cpu=$(inputs.params.cpuRequest),memory=$(inputs.params.memoryRequest) \
+
+          oc patch svc wiremock-metrics-$next_level -p '{"spec": {"ports": [{"name":
+          "9090-tcp", "port": 9090, "targetPort": 9090}]}}'
+
+        else
+
+            oc new-app --image=quay.io/avitui/wiremock-metrics:v1 \
+                        --name=wiremock-metrics-1 --labels='app=wiremock-metrics-1' \
+                        -e TRACEACTIVE=$(inputs.params.TRACEACTIVE) \
+                        -e WIREMOCKPORT=$(inputs.params.WIREMOCKPORT) -e PROMETHEUSPORT=$(inputs.params.PROMETHEUSPORT) \
+                        -e DELAYLOWERBOUNDMS=$(inputs.params.DELAYLOWERBOUNDMS) -e ASYNCRESPTHREADS=$(inputs.params.DELAYUPPERBOUNDMS) \
+                        -e DEEP_LEVEL=0 \
+                        -e CONTAINERTHREADS=$(inputs.params.CONTAINERTHREADS) \
+                        -e JETTYACCEPTORS=$(inputs.params.JETTYACCEPTORS) -e JETTYACCEPTORSQSIZE=$(inputs.params.JETTYACCEPTORSQSIZE) \
+                        -e ASYNCRESPENABLED=$(inputs.params.ASYNCRESPENABLED) -e ASYNCRESPTHREADS=$(inputs.params.ASYNCRESPTHREADS)                    
+
+            oc set resources deployment/wiremock-metrics-1 \
+                        --limits=cpu=$(inputs.params.cpuLimit),memory=$(inputs.params.memoryLimit) \
+                        --requests=cpu=$(inputs.params.cpuRequest),memory=$(inputs.params.memoryRequest) 
+
+            oc patch svc wiremock-metrics-1 -p '{"spec": {"ports": [{"name":
+            "9090-tcp", "port": 9090, "targetPort": 9090}]}}'
+
+        fi
+        sleep 10

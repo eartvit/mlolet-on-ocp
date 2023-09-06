@@ -1,0 +1,84 @@
+﻿apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: load-generaror-deploy-task
+  namespace: demo
+  labels:
+    app: load-generator
+spec:
+  params:
+    - name: endpoint
+      type: string
+    - default: '10'
+      name: connections
+      type: string
+    - default: '30'
+      name: duration
+      type: string
+    - default: '2'
+      name: timeout
+      type: string
+    - default: json
+      name: outFormat
+      type: string
+    - default: 'false'
+      name: stopOnError
+      type: string
+    - default: '50,150,155'
+      name: payloadSizes
+      type: string
+    - default: 'true'
+      name: randPayload
+      type: string
+    - default: 'true'
+      name: randReqMode
+      type: string
+    - default: '50'
+      name: threadSleepMS
+      type: string
+    - default: '10'
+      name: ltReqPayloadSizeFactor
+      type: string
+    - default: 'false'
+      name: ltReqFirstSizeOnly
+      type: string
+    - default: 'false'
+      name: traceActive
+      type: string
+  steps:
+    - env:
+        - name: TRACEACTIVE
+          value: $(inputs.params.traceActive)
+        - name: CONNECTIONS
+          value: $(inputs.params.connections)
+        - name: DURATION
+          value: $(inputs.params.duration)
+        - name: TIMEOUTSECONDS
+          value: $(inputs.params.timeout)
+        - name: ENDPOINT
+          value: $(inputs.params.endpoint)
+        - name: OUTPUT
+          value: $(inputs.params.outFormat)
+        - name: STOPONERROR
+          value: $(inputs.params.stopOnError)
+        - name: THREADSLEEPMS
+          value: $(inputs.params.threadSleepMS)
+        - name: RANDREQMODE
+          value: $(inputs.params.randReqMode)
+        - name: RANDPAYLOAD
+          value: $(inputs.params.randPayload)
+        - name: PAYLOADSIZES
+          value: $(inputs.params.payloadSizes)
+        - name: LTREQPAYLOADSIZEFACTOR
+          value: $(inputs.params.ltReqPayloadSizeFactor)
+        - name: LTREQFIRSTSIZEONLY
+          value: $(inputs.params.ltReqFirstSizeOnly)
+      image: 'quay.io/avitui/load-generator:v1'
+      name: load-generator-task
+      resources:
+        limits:
+          cpu: '2'
+          memory: 4Gi
+        requests:
+          cpu: '1'
+          memory: 2Gi
