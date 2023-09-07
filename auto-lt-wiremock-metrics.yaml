@@ -197,7 +197,7 @@ spec:
       taskRef:
         kind: Task
         name: generate-random-number
-    - name: wiremock-metrics-deploy-no-deep-task
+    - name: wiremock-metrics-deploy-task
       params:
         - name: TRACEACTIVE
           value: $(params.traceActive)
@@ -240,7 +240,7 @@ spec:
         - generate-random-number-jacptqsize
       taskRef:
         kind: Task
-        name: wiremock-metrics-deploy-no-deep-task
+        name: wiremock-metrics-deploy-task
     - name: scale-deployment-task
       params:
         - name: deploymentName
@@ -250,7 +250,7 @@ spec:
         - name: deepLevel
           value: $(params.levelsDeep)
       runAfter:
-        - wiremock-metrics-deploy-no-deep-task
+        - wiremock-metrics-deploy-task
       taskRef:
         kind: Task
         name: scale-deployment-task
