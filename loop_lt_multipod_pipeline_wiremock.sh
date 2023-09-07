@@ -28,7 +28,7 @@ for (( i=0; i<$RUNS; ++i)); do
             --param payloadSizes='50,150,255' --param ltReqPayloadSizeFactor=10 --param ltReqFirstSizeOnly=True \
             --param connectionsLowerBound=1 --param connectionsUpperBound=50 \
             --param durationLowerBound=10 --param durationUpperBound=900 \
-            --param URL=http://wiremock-metrics.demo.svc.cluster.local:8080/mock \
+            --param URL=http://wiremock-metrics-1.demo.svc.cluster.local:8080/mock \
             --param levelsDeep=$LEVELS_DEEP --param deepURLPattern='http://wiremock-metrics-{n}.demo.svc.cluster.local:8080/mock' \
             --param scaleLowerBound=1 --param scaleUpperBound=10 --param wiremockPort=8080 \
             --param prometheusPort=9090 --param delayLowerBoundsMS=100 --param delayUpperBoundsMS=300 \
