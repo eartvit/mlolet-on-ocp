@@ -41,7 +41,7 @@ spec:
 
             LEVELS_DEEP=$(($RANDOM % 4))
 
-            echo -e 'Running cycle '$(($i+1))' out of '$RUNS' using async resp mode: '${ASYNCRESP}', levelsDeep: '${LEVELS_DEEP}' and timeout: '${TIMEOUT}
+            echo -e 'Running cycle '$(($i+1))' out of '$(inputs.params.RUNS)' using async resp mode: '${ASYNCRESP}', levelsDeep: '${LEVELS_DEEP}' and timeout: '${TIMEOUT}
 
             # with showlog parameter the tkn command will remain active in the shell until the pipeline executes/completes
             
