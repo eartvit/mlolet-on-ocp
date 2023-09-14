@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: load-generator
+  namespace: demo
+  labels:
+    app: load-generator
+spec:
+  ports:
+    - name: 9090-tcp
+      protocol: TCP
+      port: 9090
+      targetPort: 9090
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: load-generator
+status:
+  loadBalancer: {}

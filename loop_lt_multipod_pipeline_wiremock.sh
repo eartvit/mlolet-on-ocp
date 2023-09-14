@@ -23,11 +23,15 @@ for (( i=0; i<$RUNS; ++i)); do
 
     # with showlog parameter the tkn command will remain active in the shell until the pipeline executes/completes
     # without the showlog param, the tkn command will finish and then we need to monitor in a loop when the execution finished, as below
-    `tkn pipeline start auto-lt-wiremock-metrics --param reqTimeout=${TIMEOUT} --param traceActive=False \
+    `tkn pipeline start auto-lt-wiremock-metrics --pipeline-timeout 0 --tasks-timeout 40m --param reqTimeout=${TIMEOUT} --param traceActive=False \
             --param threadSleepMS=50 --param randReqMode=True --param randPayload=True \
             --param payloadSizes='50,150,255' --param ltReqPayloadSizeFactor=10 --param ltReqFirstSizeOnly=True \
-            --param connectionsLowerBound=1 --param connectionsUpperBound=50 \
-            --param durationLowerBound=10 --param durationUpperBound=900 \
+            --param connectionsLowerBound=10 --param connectionsUpperBound=100 \
+            --param durationLowerBound=180 --param durationUpperBound=1200 \
+            --param createSpikes=True --param spikeConnections=12 \
+            --param randomSpikeDuration=False --param randomSpikeRepeat=False \
+            --param spikeDurationLoBound=15 --param spikeDurationUpBound=16 \
+            --param spikeRepetitionLoBound=15 --param spikeRepetitionUpBound=16 \
             --param URL=http://wiremock-metrics-1.demo.svc.cluster.local:8080/mock \
             --param levelsDeep=$LEVELS_DEEP --param deepURLPattern='http://wiremock-metrics-{n}.demo.svc.cluster.local:8080/mock' \
             --param scaleLowerBound=1 --param scaleUpperBound=10 --param wiremockPort=8080 \
@@ -41,11 +45,11 @@ for (( i=0; i<$RUNS; ++i)); do
     STATUS=`tkn pipelineruns list --no-headers | sed -n 1p | awk '{print $NF}'`
     while [[ $STATUS != 'Succeeded' ]]
     do
-      echo -e 'Pipeline run '$PIPELINERUN' is '$STATUS'...'
+      echo -e 'Pipeline run #'$(($i+1))': '$PIPELINERUN' is '$STATUS'...'
       if [[ $STATUS == 'Failed' ]]; then
         echo -e 'Cleaning up resources of failed pipelinerun...'
-        oc delete deployment,services -l app=wiremock-mlasp
-        ERR_COUNT = $((ERR_COUNT+1))
+        tkn task start wiremock-cleanup-task --param appLabel=wiremock-metrics --param deepLevel=$LEVELS_DEEP --showlog
+        ERR_COUNT=$(($ERR_COUNT+1))
         break;
       fi
       STATUS=`tkn pipelineruns list --no-headers | sed -n 1p | awk '{print $NF}'`
@@ -59,7 +63,7 @@ for (( i=0; i<$RUNS; ++i)); do
 done
 
 if [[ $ERR_COUNT -gt 0 ]]; then
-  echo -e 'Errors encountered: $ERR_COUNT'
+  echo -e 'Errors encountered: '${ERR_COUNT}'.\n'
 fi
 
 

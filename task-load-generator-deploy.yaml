@@ -45,8 +45,58 @@ spec:
     - default: 'false'
       name: traceActive
       type: string
+    - default: 'false'
+      name: createSpikes
+      type: string
+    - default: '2'
+      name: spikeConnections
+      type: string
+    - default: '1'
+      name: spikeDurationLowerBound
+      type: string
+    - default: '5'
+      name: spikeDurationUpperBound
+      type: string
+    - default: 'false'
+      name: randomSpikeDuration
+      type: string
+    - default: '3'
+      name: spikeRepetitionLoBound
+      type: string
+    - default: '6'
+      name: spikeRepetitionHiBound
+      type: string
+    - default: 'false'
+      name: randomSpikeRepeat
+      type: string
+    - default: '9090'
+      name: prometheusPort
+      type: string
+    - default: 'false'
+      name: detailedOutput
+      type: string
   steps:
     - env:
+        - name: CREATESPIKES
+          value: $(inputs.params.createSpikes)
+        - name: SPIKECONNECTIONS
+          value: $(inputs.params.spikeConnections)
+        - name: PROMETHEUSPORT
+          value: $(inputs.params.prometheusPort)
+        - name: SPIKEDURATIONLOWERBOUND
+          value: $(inputs.params.spikeDurationLowerBound)
+        - name: SPIKEDURATIONUPPERBOUND
+          value: $(inputs.params.spikeDurationUpperBound)
+        - name: RANDOMSPIKEDURATION
+          value: $(inputs.params.randomSpikeDuration)
+        - name: SPIKEREPETITIONINTLOBOUND
+          value: $(inputs.params.spikeRepetitionLoBound)
+        - name: SPIKEREPETITIONINTHIBOUND
+          value: $(inputs.params.spikeRepetitionHiBound)
+        - name: RANDOMSPIKEREPEAT
+          value: $(inputs.params.randomSpikeRepeat)
+        - name: DETAILEDOUTPUT
+          value: $(inputs.params.detailedOutput)
         - name: TRACEACTIVE
           value: $(inputs.params.traceActive)
         - name: CONNECTIONS
@@ -75,6 +125,9 @@ spec:
           value: $(inputs.params.ltReqFirstSizeOnly)
       image: 'quay.io/avitui/load-generator:v1'
       name: load-generator-task
+      ports:
+        - name: 9090-tcp
+          containerPort: 9090
       resources:
         limits:
           cpu: '2'
