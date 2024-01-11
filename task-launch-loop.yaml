@@ -8,6 +8,48 @@ spec:
     - name: RUNS
       type: string
       default: '2'
+    - name: randReqMode
+      type: string
+      default: 'True'
+    - name: randPayload
+      type: string
+      default: 'True'
+    - name: connectionsLowerBound
+      type: string
+      default: '10'
+    - name: connectionsUpperBound
+      type: string
+      default: '50'
+    - name: durationLowerBound
+      type: string
+      default: '180'
+    - name: durationUpperBound
+      type: string
+      default: '1800'
+    - name: createSpikes
+      type: string
+      default: 'True'
+    - name: spikeConnections
+      type: string
+      default: '15'
+    - name: randomSpikeDuration
+      type: string
+      default: 'False'
+    - name: randomSpikeRepeat
+      type: string
+      default: 'False'
+    - name: spikeDurationLoBound
+      type: string
+      default: '15'
+    - name: spikeDurationUpBound
+      type: string
+      default: '16'
+    - name: spikeRepetitionLoBound
+      type: string
+      default: '15'
+    - name: spikeRepetitionUpBound
+      type: string
+      default: '16'
   steps:
     - image: quay.io/avitui/ose-cli-w-tkn
       name: launch-loop-auto-lt-pipeline
@@ -47,15 +89,15 @@ spec:
             
             # without the showlog param, the tkn command will finish and then we need to monitor in a loop when the execution finished, as below
 
-            `tkn pipeline start auto-lt-wiremock-metrics --pipeline-timeout 0 --tasks-timeout 70m --param reqTimeout=${TIMEOUT} --param traceActive=False \
-                    --param threadSleepMS=50 --param randReqMode=True --param randPayload=True \
+            `tkn pipeline start auto-lt-wiremock-metrics --pipeline-timeout 0 --tasks-timeout 120m --param reqTimeout=${TIMEOUT} --param traceActive=False \
+                    --param threadSleepMS=50 --param randReqMode='$(inputs.params.randReqMode)' --param randPayload='$(inputs.params.randPayload)' \
                     --param payloadSizes='50,150,255' --param ltReqPayloadSizeFactor=10 --param ltReqFirstSizeOnly=True \
-                    --param connectionsLowerBound=10 --param connectionsUpperBound=100 \
-                    --param durationLowerBound=180 --param durationUpperBound=1200 \
-                    --param createSpikes=True --param spikeConnections=12 \
-                    --param randomSpikeDuration=False --param randomSpikeRepeat=False \
-                    --param spikeDurationLoBound=15 --param spikeDurationUpBound=16 \
-                    --param spikeRepetitionLoBound=15 --param spikeRepetitionUpBound=16 \
+                    --param connectionsLowerBound='$(inputs.params.connectionsLowerBound)' --param connectionsUpperBound='$(inputs.params.connectionsUpperBound)' \
+                    --param durationLowerBound='$(inputs.params.durationLowerBound)' --param durationUpperBound='$(inputs.params.durationUpperBound)' \
+                    --param createSpikes='$(inputs.params.createSpikes)' --param spikeConnections='$(inputs.params.spikeConnections)' \
+                    --param randomSpikeDuration='$(inputs.params.randomSpikeDuration)' --param randomSpikeRepeat='$(inputs.params.randomSpikeRepeat)' \
+                    --param spikeDurationLoBound='$(inputs.params.spikeDurationLoBound)' --param spikeDurationUpBound='$(inputs.params.spikeDurationUpBound)' \
+                    --param spikeRepetitionLoBound='$(inputs.params.spikeRepetitionLoBound)' --param spikeRepetitionUpBound='$(inputs.params.spikeRepetitionUpBound)' \
                     --param URL=http://wiremock-metrics-1.demo.svc.cluster.local:8080/mock \
                     --param levelsDeep=$LEVELS_DEEP --param deepURLPattern='http://wiremock-metrics-{n}.demo.svc.cluster.local:8080/mock' \
                     --param scaleLowerBound=1 --param scaleUpperBound=10 --param wiremockPort=8080 \

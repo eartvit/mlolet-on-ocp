@@ -5,330 +5,379 @@ metadata:
   namespace: demo
 spec:
   params:
-    - default: '100'
-      description: WireMock Jetty Accept Queue Size lower bound
-      name: jacptThreadsLowerBound
-      type: string
-    - default: '200'
-      description: WireMock Jetty Accept Queue Size upper bound
-      name: jacptThreadsUpperBound
-      type: string
-    - default: '1'
-      description: load generator connections lower bound
-      name: connectionsLowerBound
-      type: string
-    - default: '50'
-      description: load generator connections upper bound
-      name: connectionsUpperBound
-      type: string
-    - default: '10'
-      description: load test duration lower bound
-      name: durationLowerBound
-      type: string
-    - default: '360'
-      description: load test duration upper bound
-      name: durationUpperBound
-      type: string
-    - default: '1'
-      description: wiremock target scale lower bound
-      name: scaleLowerBound
-      type: string
-    - default: '10'
-      description: wiremock target scale upper bound
-      name: scaleUpperBound
-      type: string
-    - default: '10'
-      name: asyncRespThreadsLowerBound
-      type: string
-    - default: '25'
-      name: asyncRespThreadsUpperBound
-      type: string
-    - default: '1000'
-      name: jacptQSizeLowerBound
-      type: string
-    - default: '2000'
-      name: jacptQSizeUpperBound
-      type: string
-    - default: 'http://wiremock-metrics-1.demo.svc.cluster.local:8080/mock'
-      description: LT Target URL
-      name: URL
-      type: string
-    - default: 'true'
-      description: wiremock use async response
-      name: asyncResp
-      type: string
-    - default: '1'
-      description: wiremock container cpu limit
-      name: cpuLimit
-      type: string
-    - default: 500m
-      description: wiremock container cpu request
-      name: cpuRequest
-      type: string
-    - default: 2Gi
-      description: wiremock container memory limit
-      name: memoryLimit
-      type: string
-    - default: 1Gi
-      description: wiremock container memory request
-      name: memoryRequest
-      type: string
-    - default: '2'
-      description: load generator timeout
-      name: reqTimeout
-      type: string
-    - default: '50'
-      description: load generator thread sleep ms
-      name: threadSleepMS
-      type: string
-    - default: 'True'
-      description: load generator random request mode
-      name: randReqMode
-      type: string
-    - default: 'True'
-      description: load generator random payload
-      name: randPayload
-      type: string
-    - default: '50,150,255'
-      description: load generator random payload sizes
-      name: payloadSizes
-      type: string
-    - default: 'http://wiremock-metrics-{n}.demo.svc.cluster.local:8080/mock'
-      description: wiremock deep endpoint
-      name: deepURLPattern
-      type: string
-    - default: '8080'
-      description: wiremock service port
-      name: wiremockPort
-      type: string
-    - default: '9090'
-      description: wiremock prometheus port
-      name: prometheusPort
-      type: string
-    - default: '100'
-      description: wiremock response delay lower bound ms
-      name: delayLowerBoundsMS
-      type: string
-    - default: '300'
-      description: wiremock response delay upper bound ms
-      name: delayUpperBoundsMS
-      type: string
-    - default: '0'
-      description: >-
-        How many recurrent wiremock stack calls. Default is zero meaning no
-        recurrence
-      name: levelsDeep
-      type: string
-    - default: '10'
-      description: >-
-        The ratio between the load generator request payload and the wiremock
-        response payload
-      name: ltReqPayloadSizeFactor
-      type: string
-    - default: 'False'
-      description: Force one size request payload from load generator
-      name: ltReqFirstSizeOnly
-      type: string
-    - default: 'False'
-      description: Activate tracing
-      name: traceActive
-      type: string
+  - default: "100"
+    description: WireMock Jetty Accept Queue Size lower bound
+    name: jacptThreadsLowerBound
+    type: string
+  - default: "200"
+    description: WireMock Jetty Accept Queue Size upper bound
+    name: jacptThreadsUpperBound
+    type: string
+  - default: "1"
+    description: load generator connections lower bound
+    name: connectionsLowerBound
+    type: string
+  - default: "50"
+    description: load generator connections upper bound
+    name: connectionsUpperBound
+    type: string
+  - default: "10"
+    description: load test duration lower bound
+    name: durationLowerBound
+    type: string
+  - default: "360"
+    description: load test duration upper bound
+    name: durationUpperBound
+    type: string
+  - default: "1"
+    description: wiremock target scale lower bound
+    name: scaleLowerBound
+    type: string
+  - default: "10"
+    description: wiremock target scale upper bound
+    name: scaleUpperBound
+    type: string
+  - default: "10"
+    name: asyncRespThreadsLowerBound
+    type: string
+  - default: "25"
+    name: asyncRespThreadsUpperBound
+    type: string
+  - default: "1000"
+    name: jacptQSizeLowerBound
+    type: string
+  - default: "2000"
+    name: jacptQSizeUpperBound
+    type: string
+  - default: http://wiremock-metrics-1.demo.svc.cluster.local:8080/mock
+    description: LT Target URL
+    name: URL
+    type: string
+  - default: "true"
+    description: wiremock use async response
+    name: asyncResp
+    type: string
+  - default: "1"
+    description: wiremock container cpu limit
+    name: cpuLimit
+    type: string
+  - default: 500m
+    description: wiremock container cpu request
+    name: cpuRequest
+    type: string
+  - default: 2Gi
+    description: wiremock container memory limit
+    name: memoryLimit
+    type: string
+  - default: 1Gi
+    description: wiremock container memory request
+    name: memoryRequest
+    type: string
+  - default: "2"
+    description: load generator timeout
+    name: reqTimeout
+    type: string
+  - default: "50"
+    description: load generator thread sleep ms
+    name: threadSleepMS
+    type: string
+  - default: "True"
+    description: load generator random request mode
+    name: randReqMode
+    type: string
+  - default: "True"
+    description: load generator random payload
+    name: randPayload
+    type: string
+  - default: 50,150,255
+    description: load generator random payload sizes
+    name: payloadSizes
+    type: string
+  - default: http://wiremock-metrics-{n}.demo.svc.cluster.local:8080/mock
+    description: wiremock deep endpoint
+    name: deepURLPattern
+    type: string
+  - default: "8080"
+    description: wiremock service port
+    name: wiremockPort
+    type: string
+  - default: "9090"
+    description: wiremock prometheus port
+    name: prometheusPort
+    type: string
+  - default: "100"
+    description: wiremock response delay lower bound ms
+    name: delayLowerBoundsMS
+    type: string
+  - default: "300"
+    description: wiremock response delay upper bound ms
+    name: delayUpperBoundsMS
+    type: string
+  - default: "0"
+    description: How many recurrent wiremock stack calls. Default is zero meaning
+      no recurrence
+    name: levelsDeep
+    type: string
+  - default: "10"
+    description: The ratio between the load generator request payload and the wiremock
+      response payload
+    name: ltReqPayloadSizeFactor
+    type: string
+  - default: "False"
+    description: Force one size request payload from load generator
+    name: ltReqFirstSizeOnly
+    type: string
+  - default: "False"
+    description: Activate tracing
+    name: traceActive
+    type: string
+  - default: "False"
+    description: Spike generation control flag
+    name: createSpikes
+    type: string
+  - default: "False"
+    description: Random spike duration
+    name: randomSpikeDuration
+    type: string
+  - default: "False"
+    description: Random spike repeat
+    name: randomSpikeRepeat
+    type: string
+  - default: "5"
+    description: Spike duration interval lower bound
+    name: spikeDurationLoBound
+    type: string
+  - default: "6"
+    description: Spike duration interval upper bound
+    name: spikeDurationUpBound
+    type: string
+  - default: "5"
+    description: Spike repetition interval lower bound
+    name: spikeRepetitionLoBound
+    type: string
+  - default: "6"
+    description: Spike repetition interval upper bound
+    name: spikeRepetitionUpBound
+    type: string
+  - default: "2"
+    description: Number of spike generator threads
+    name: spikeConnections
+    type: string
   tasks:
-    - name: generate-random-number-duration
-      params:
-        - name: lowerBound
-          value: $(params.durationLowerBound)
-        - name: upperBound
-          value: $(params.durationUpperBound)
-      taskRef:
-        kind: Task
-        name: generate-random-number
-    - name: generate-random-number-connections
-      params:
-        - name: lowerBound
-          value: $(params.connectionsLowerBound)
-        - name: upperBound
-          value: $(params.connectionsUpperBound)
-      taskRef:
-        kind: Task
-        name: generate-random-number
-    - name: generate-random-number-scale
-      params:
-        - name: lowerBound
-          value: $(params.scaleLowerBound)
-        - name: upperBound
-          value: $(params.scaleUpperBound)
-      taskRef:
-        kind: Task
-        name: generate-random-number
-    - name: generate-random-number-asyncrespthreads
-      params:
-        - name: lowerBound
-          value: $(params.asyncRespThreadsLowerBound)
-        - name: upperBound
-          value: $(params.asyncRespThreadsUpperBound)
-      taskRef:
-        kind: Task
-        name: generate-random-number
-    - name: generate-random-number-jacptqsize
-      params:
-        - name: lowerBound
-          value: $(params.jacptQSizeLowerBound)
-        - name: upperBound
-          value: $(params.jacptQSizeUpperBound)
-      taskRef:
-        kind: Task
-        name: generate-random-number
-    - name: calculate-cthreads-value-task
-      params:
-        - name: inputNumber
-          value: $(tasks.generate-random-number-jacptthreads.results.randNum)
-      runAfter:
-        - generate-random-number-jacptthreads
-      taskRef:
-        kind: Task
-        name: calculate-cthreads-value-task
-    - name: generate-random-number-jacptthreads
-      params:
-        - name: lowerBound
-          value: $(params.jacptThreadsLowerBound)
-        - name: upperBound
-          value: $(params.jacptThreadsUpperBound)
-      taskRef:
-        kind: Task
-        name: generate-random-number
-    - name: wiremock-metrics-deploy-task
-      params:
-        - name: TRACEACTIVE
-          value: $(params.traceActive)
-        - name: WIREMOCKPORT
-          value: $(params.wiremockPort)
-        - name: PROMETHEUSPORT
-          value: $(params.prometheusPort)
-        - name: DELAYLOWERBOUNDMS
-          value: $(params.delayLowerBoundsMS)
-        - name: DELAYUPPERBOUNDMS
-          value: $(params.delayUpperBoundsMS)
-        - name: DEEP_LEVEL
-          value: $(params.levelsDeep)
-        - name: DEEP_ENDPOINT
-          value: $(params.deepURLPattern)
-        - name: CONTAINERTHREADS
-          value: $(tasks.calculate-cthreads-value-task.results.cthreadsNum)
-        - name: JETTYACCEPTORS
-          value: $(tasks.generate-random-number-jacptthreads.results.randNum)
-        - name: JETTYACCEPTORSQSIZE
-          value: $(tasks.generate-random-number-jacptqsize.results.randNum)
-        - name: ASYNCRESPENABLED
-          value: $(params.asyncResp)
-        - name: ASYNCRESPTHREADS
-          value: $(tasks.generate-random-number-asyncrespthreads.results.randNum)
-        - name: cpuLimit
-          value: $(params.cpuLimit)
-        - name: memoryLimit
-          value: $(params.memoryLimit)
-        - name: cpuRequest
-          value: $(params.cpuRequest)
-        - name: memoryRequest
-          value: $(params.memoryRequest)
-      runAfter:
-        - calculate-cthreads-value-task
-        - generate-random-number-asyncrespthreads
-        - generate-random-number-connections
-        - generate-random-number-duration
-        - generate-random-number-scale
-        - generate-random-number-jacptqsize
-      taskRef:
-        kind: Task
-        name: wiremock-metrics-deploy-task
-    - name: scale-deployment-task
-      params:
-        - name: deploymentName
-          value: wiremock-metrics
-        - name: size
-          value: $(tasks.generate-random-number-scale.results.randNum)
-        - name: deepLevel
-          value: $(params.levelsDeep)
-      runAfter:
-        - wiremock-metrics-deploy-task
-      taskRef:
-        kind: Task
-        name: scale-deployment-task
-    - name: load-generaror-deploy-task
-      params:
-        - name: endpoint
-          value: $(params.URL)
-        - name: connections
-          value: $(tasks.generate-random-number-connections.results.randNum)
-        - name: duration
-          value: $(tasks.generate-random-number-duration.results.randNum)
-        - name: timeout
-          value: $(params.reqTimeout)
-        - name: outFormat
-          value: json
-        - name: stopOnError
-          value: 'false'
-        - name: payloadSizes
-          value: $(params.payloadSizes)
-        - name: randPayload
-          value: $(params.randPayload)
-        - name: randReqMode
-          value: $(params.randReqMode)
-        - name: threadSleepMS
-          value: $(params.threadSleepMS)
-        - name: ltReqPayloadSizeFactor
-          value: $(params.ltReqPayloadSizeFactor)
-        - name: ltReqFirstSizeOnly
-          value: $(params.ltReqFirstSizeOnly)
-        - name: traceActive
-          value: $(params.traceActive)
-      runAfter:
-        - scale-deployment-task
-      taskRef:
-        kind: Task
-        name: load-generaror-deploy-task
-    - name: lt-summary
-      params:
-        - name: influxDBURL
-          value: >-
-            http://influxdb.demo.svc.cluster.local:8086/write?db=loadtesting&precision=s&user=root&p=root
-        - name: ltTargetSize
-          value: $(tasks.generate-random-number-scale.results.randNum)
-        - name: cThreads
-          value: $(tasks.calculate-cthreads-value-task.results.cthreadsNum)
-        - name: jacptThreads
-          value: $(tasks.generate-random-number-jacptthreads.results.randNum)
-        - name: jacptQSize
-          value: $(tasks.generate-random-number-jacptqsize.results.randNum)
-        - name: asyncResp
-          value: $(params.asyncResp)
-        - name: asyncRespThreads
-          value: $(tasks.generate-random-number-asyncrespthreads.results.randNum)
-        - name: cpuLimit
-          value: $(params.cpuLimit)
-        - name: memoryLimit
-          value: $(params.memoryLimit)
-        - name: cpuRequest
-          value: $(params.cpuRequest)
-        - name: memoryRequest
-          value: $(params.memoryRequest)
-        - name: ltReqPayloadSizeFactor
-          value: $(params.ltReqPayloadSizeFactor)
-        - name: levelsDeep
-          value: $(params.levelsDeep)
-      runAfter:
-        - load-generaror-deploy-task
-      taskRef:
-        kind: Task
-        name: lt-summary
-    - name: wiremock-cleanup-task
-      params:
-        - name: appLabel
-          value: wiremock-metrics
-        - name: deepLevel
-          value: $(params.levelsDeep)
-      runAfter:
-        - lt-summary
-      taskRef:
-        kind: Task
-        name: wiremock-cleanup-task
+  - name: generate-random-number-duration
+    params:
+    - name: lowerBound
+      value: $(params.durationLowerBound)
+    - name: upperBound
+      value: $(params.durationUpperBound)
+    taskRef:
+      kind: Task
+      name: generate-random-number
+  - name: generate-random-number-connections
+    params:
+    - name: lowerBound
+      value: $(params.connectionsLowerBound)
+    - name: upperBound
+      value: $(params.connectionsUpperBound)
+    taskRef:
+      kind: Task
+      name: generate-random-number
+  - name: generate-random-number-scale
+    params:
+    - name: lowerBound
+      value: $(params.scaleLowerBound)
+    - name: upperBound
+      value: $(params.scaleUpperBound)
+    taskRef:
+      kind: Task
+      name: generate-random-number
+  - name: generate-random-number-asyncrespthreads
+    params:
+    - name: lowerBound
+      value: $(params.asyncRespThreadsLowerBound)
+    - name: upperBound
+      value: $(params.asyncRespThreadsUpperBound)
+    taskRef:
+      kind: Task
+      name: generate-random-number
+  - name: generate-random-number-jacptqsize
+    params:
+    - name: lowerBound
+      value: $(params.jacptQSizeLowerBound)
+    - name: upperBound
+      value: $(params.jacptQSizeUpperBound)
+    taskRef:
+      kind: Task
+      name: generate-random-number
+  - name: calculate-cthreads-value-task
+    params:
+    - name: inputNumber
+      value: $(tasks.generate-random-number-jacptthreads.results.randNum)
+    runAfter:
+    - generate-random-number-jacptthreads
+    taskRef:
+      kind: Task
+      name: calculate-cthreads-value-task
+  - name: generate-random-number-jacptthreads
+    params:
+    - name: lowerBound
+      value: $(params.jacptThreadsLowerBound)
+    - name: upperBound
+      value: $(params.jacptThreadsUpperBound)
+    taskRef:
+      kind: Task
+      name: generate-random-number
+  - name: wiremock-metrics-deploy-task
+    params:
+    - name: TRACEACTIVE
+      value: $(params.traceActive)
+    - name: WIREMOCKPORT
+      value: $(params.wiremockPort)
+    - name: PROMETHEUSPORT
+      value: $(params.prometheusPort)
+    - name: DELAYLOWERBOUNDMS
+      value: $(params.delayLowerBoundsMS)
+    - name: DELAYUPPERBOUNDMS
+      value: $(params.delayUpperBoundsMS)
+    - name: DEEP_LEVEL
+      value: $(params.levelsDeep)
+    - name: DEEP_ENDPOINT
+      value: $(params.deepURLPattern)
+    - name: CONTAINERTHREADS
+      value: $(tasks.calculate-cthreads-value-task.results.cthreadsNum)
+    - name: JETTYACCEPTORS
+      value: $(tasks.generate-random-number-jacptthreads.results.randNum)
+    - name: JETTYACCEPTORSQSIZE
+      value: $(tasks.generate-random-number-jacptqsize.results.randNum)
+    - name: ASYNCRESPENABLED
+      value: $(params.asyncResp)
+    - name: ASYNCRESPTHREADS
+      value: $(tasks.generate-random-number-asyncrespthreads.results.randNum)
+    - name: cpuLimit
+      value: $(params.cpuLimit)
+    - name: memoryLimit
+      value: $(params.memoryLimit)
+    - name: cpuRequest
+      value: $(params.cpuRequest)
+    - name: memoryRequest
+      value: $(params.memoryRequest)
+    runAfter:
+    - calculate-cthreads-value-task
+    - generate-random-number-asyncrespthreads
+    - generate-random-number-connections
+    - generate-random-number-duration
+    - generate-random-number-scale
+    - generate-random-number-jacptqsize
+    taskRef:
+      kind: Task
+      name: wiremock-metrics-deploy-task
+  - name: scale-deployment-task
+    params:
+    - name: deploymentName
+      value: wiremock-metrics
+    - name: size
+      value: $(tasks.generate-random-number-scale.results.randNum)
+    - name: deepLevel
+      value: $(params.levelsDeep)
+    runAfter:
+    - wiremock-metrics-deploy-task
+    taskRef:
+      kind: Task
+      name: scale-deployment-task
+  - name: load-generaror-deploy-task
+    params:
+    - name: endpoint
+      value: $(params.URL)
+    - name: connections
+      value: $(tasks.generate-random-number-connections.results.randNum)
+    - name: duration
+      value: $(tasks.generate-random-number-duration.results.randNum)
+    - name: timeout
+      value: $(params.reqTimeout)
+    - name: outFormat
+      value: json
+    - name: stopOnError
+      value: "false"
+    - name: payloadSizes
+      value: $(params.payloadSizes)
+    - name: randPayload
+      value: $(params.randPayload)
+    - name: randReqMode
+      value: $(params.randReqMode)
+    - name: threadSleepMS
+      value: $(params.threadSleepMS)
+    - name: ltReqPayloadSizeFactor
+      value: $(params.ltReqPayloadSizeFactor)
+    - name: ltReqFirstSizeOnly
+      value: $(params.ltReqFirstSizeOnly)
+    - name: traceActive
+      value: $(params.traceActive)
+    - name: createSpikes
+      value: $(params.createSpikes)
+    - name: spikeConnections
+      value: $(params.spikeConnections)
+    - name: spikeDurationLowerBound
+      value: $(params.spikeDurationLoBound)
+    - name: spikeDurationUpperBound
+      value: $(params.spikeDurationUpBound)
+    - name: randomSpikeDuration
+      value: $(params.randomSpikeDuration)
+    - name: spikeRepetitionLoBound
+      value: $(params.spikeRepetitionLoBound)
+    - name: spikeRepetitionHiBound
+      value: $(params.spikeRepetitionUpBound)
+    - name: randomSpikeRepeat
+      value: $(params.randomSpikeRepeat)
+    - name: prometheusPort
+      value: "9090"
+    - name: detailedOutput
+      value: "false"
+    runAfter:
+    - scale-deployment-task
+    taskRef:
+      kind: Task
+      name: load-generaror-deploy-task
+  - name: lt-summary
+    params:
+    - name: influxDBURL
+      value: http://influxdb.demo.svc.cluster.local:8086/write?db=loadtesting&precision=s&user=root&p=root
+    - name: ltTargetSize
+      value: $(tasks.generate-random-number-scale.results.randNum)
+    - name: cThreads
+      value: $(tasks.calculate-cthreads-value-task.results.cthreadsNum)
+    - name: jacptThreads
+      value: $(tasks.generate-random-number-jacptthreads.results.randNum)
+    - name: jacptQSize
+      value: $(tasks.generate-random-number-jacptqsize.results.randNum)
+    - name: asyncResp
+      value: $(params.asyncResp)
+    - name: asyncRespThreads
+      value: $(tasks.generate-random-number-asyncrespthreads.results.randNum)
+    - name: cpuLimit
+      value: $(params.cpuLimit)
+    - name: memoryLimit
+      value: $(params.memoryLimit)
+    - name: cpuRequest
+      value: $(params.cpuRequest)
+    - name: memoryRequest
+      value: $(params.memoryRequest)
+    - name: ltReqPayloadSizeFactor
+      value: $(params.ltReqPayloadSizeFactor)
+    - name: levelsDeep
+      value: $(params.levelsDeep)
+    runAfter:
+    - load-generaror-deploy-task
+    taskRef:
+      kind: Task
+      name: lt-summary
+  - name: wiremock-cleanup-task
+    params:
+    - name: appLabel
+      value: wiremock-metrics
+    - name: deepLevel
+      value: $(params.levelsDeep)
+    runAfter:
+    - lt-summary
+    taskRef:
+      kind: Task
+      name: wiremock-cleanup-task
