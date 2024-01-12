@@ -1,8 +1,8 @@
 #!/bin/bash
 
-tkn task start launch-loop-auto-lt-pipeline-task --param RUNS=2 --param randReqMode=True --param randPayload=True \
-    --param connectionsLowerBound=10 --param connectionsUpperBound=50 \
-    --param durationLowerBound=180 --param durationUpperBound=360 \
+tkn task start launch-loop-auto-lt-pipeline-task --timeout 180m --param RUNS=3 --param randReqMode=True --param randPayload=True \
+    --param connectionsLowerBound=5 --param connectionsUpperBound=25 \
+    --param durationLowerBound=1800 --param durationUpperBound=3600 \
     --param createSpikes=True --param spikeConnections=15 --param randomSpikeDuration=False --param randomSpikeRepeat=False \
-    --param spikeDurationLoBound=15 --param spikeDurationUpBound=16 \
-    --param spikeRepetitionLoBound=15 --param spikeRepetitionUpBound=16
+    --param spikeDurationLoBound=30 --param spikeDurationUpBound=31 \
+    --param spikeRepetitionLoBound=180 --param spikeRepetitionUpBound=181
