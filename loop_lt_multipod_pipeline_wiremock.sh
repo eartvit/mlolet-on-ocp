@@ -23,15 +23,15 @@ for (( i=0; i<$RUNS; ++i)); do
 
     # with showlog parameter the tkn command will remain active in the shell until the pipeline executes/completes
     # without the showlog param, the tkn command will finish and then we need to monitor in a loop when the execution finished, as below
-    `tkn pipeline start auto-lt-wiremock-metrics --pipeline-timeout 0 --tasks-timeout 40m --param reqTimeout=${TIMEOUT} --param traceActive=False \
+    `tkn pipeline start auto-lt-wiremock-metrics --pipeline-timeout 0 --tasks-timeout 300m --param reqTimeout=${TIMEOUT} --param traceActive=False \
             --param threadSleepMS=50 --param randReqMode=True --param randPayload=True \
             --param payloadSizes='50,150,255' --param ltReqPayloadSizeFactor=10 --param ltReqFirstSizeOnly=True \
-            --param connectionsLowerBound=10 --param connectionsUpperBound=100 \
-            --param durationLowerBound=180 --param durationUpperBound=1200 \
-            --param createSpikes=True --param spikeConnections=12 \
+            --param connectionsLowerBound=5 --param connectionsUpperBound=25 \
+            --param durationLowerBound=3600 --param durationUpperBound=10800 \
+            --param createSpikes=True --param spikeConnections=15 \
             --param randomSpikeDuration=False --param randomSpikeRepeat=False \
-            --param spikeDurationLoBound=15 --param spikeDurationUpBound=16 \
-            --param spikeRepetitionLoBound=15 --param spikeRepetitionUpBound=16 \
+            --param spikeDurationLoBound=30 --param spikeDurationUpBound=31 \
+            --param spikeRepetitionLoBound=180 --param spikeRepetitionUpBound=181 \
             --param URL=http://wiremock-metrics-1.demo.svc.cluster.local:8080/mock \
             --param levelsDeep=$LEVELS_DEEP --param deepURLPattern='http://wiremock-metrics-{n}.demo.svc.cluster.local:8080/mock' \
             --param scaleLowerBound=1 --param scaleUpperBound=10 --param wiremockPort=8080 \

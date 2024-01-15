@@ -89,7 +89,7 @@ spec:
             
             # without the showlog param, the tkn command will finish and then we need to monitor in a loop when the execution finished, as below
 
-            `tkn pipeline start auto-lt-wiremock-metrics --pipeline-timeout 0 --tasks-timeout 120m --param reqTimeout=${TIMEOUT} --param traceActive=False \
+            `tkn pipeline start auto-lt-wiremock-metrics --pipeline-timeout 0 --tasks-timeout 0 --param reqTimeout=${TIMEOUT} --param traceActive=False \
                     --param threadSleepMS=50 --param randReqMode='$(inputs.params.randReqMode)' --param randPayload='$(inputs.params.randPayload)' \
                     --param payloadSizes='50,150,255' --param ltReqPayloadSizeFactor=10 --param ltReqFirstSizeOnly=True \
                     --param connectionsLowerBound='$(inputs.params.connectionsLowerBound)' --param connectionsUpperBound='$(inputs.params.connectionsUpperBound)' \
