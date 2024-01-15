@@ -337,6 +337,7 @@ spec:
     taskRef:
       kind: Task
       name: load-generaror-deploy-task
+    timeout: "0"
   - name: lt-summary
     params:
     - name: influxDBURL
