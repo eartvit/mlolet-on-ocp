@@ -161,7 +161,18 @@ Now we are ready to generate synthetic data with the help of the `tkn-task-loop-
 *Note: For convenience purposes, some example synthetic data has been provided in the [notebooks/data](notebooks/data/) folder. Please note that this data is highly correlated with the machine details, hardware resources available to the OpenShift cluster and the configuration details for the data generation trials where the data generation pipeline has been executed.*
 
 ### Load Generator Application Details
-TBD.
+We created a custom load generator application that is also capable of exposing metrics about the generated traffic while the load is being executed. These metrics are compatible with Prometheus' metrics collection system.
+
+The load generator is capable of introducing spikes in a controlled manner into an existing load. The spikes can be generated at regular intervals and have fixed lenght, or, be generated at random intervals (betwenn a lower and a maximum length of the repetition interval) and have a fixed or random duration (controlled within a lower and a higher duration limit).
+
+The payload of the load generator is a randomly generated string, that may be of fixed or variable length. If a variable length payload is desired, the user must provide details about the number of different payloads to be generated, their length and order of generation (cyclic or random selection).
+
+The source code for this repository is available in [here](https://github.com/eartvit/load-generator/tree/main).
+
+A sample output collected by Prometheus and displayed in Grafan is depicted in the next diagram:
+![load-generator](images/load-generator-sample.png)
+
+Here, we can see three different load generation processes recorded with different load generation settings. The information displayed here is reflecting how the test subject responded back to the load generator for the requests that have benn sent. We can see that the first load test has a significant number or problems as the throughput KPI drops to zero several times. For the second load, we only see a very small and brief drop in the throughput, where the third one does not present any anomalies. Noteworthy is the aspect that for the above example uses a regularly paced out spike generation sequence.
 
 ### WireMock test subject System Details
 TBD.
