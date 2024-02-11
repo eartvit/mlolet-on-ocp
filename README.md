@@ -48,7 +48,7 @@ To start with the setup we shall install one by one the global operators:
 * Install the CruncyDB PostgreSQL community operator. The PostgreSQL and Data Foundation instance shall be used by the MLFlow instance deployment to store metadata and artifacts information respectively.
 * Install the MLFLow operator and instance following the instruction from [here](https://ai-on-openshift.io/tools-and-applications/mlflow/mlflow/#pre-requisites)
 * Install Kuberay operator using the following command:
-  * ```bash oc create -k "github.com/ray-project/kuberay/ray-operator/config/default?ref=v0.5.0&timeout=90s" ```
+  * ` oc create -k "github.com/ray-project/kuberay/ray-operator/config/default?ref=v0.5.0&timeout=90s"`
   * After the installation create a new namespace for a Ray cluster. If using the command line tool, create it as `oc new-project ray-cluster`
   * A cluster instance configuration is provided in the ![kuberay-cluster-example](kuberay-cluster-example) folder. This will create a cluster of 10 workers. At full scale, this cluster requires 20 CPU and 40GB of RAM from the RHOCP cluster. Make sure you have sufficient compute configured in your OCP cluster before creating the cluster from that sample file, or adjust the resource definition accordingly. To create a cluster instance using the provided sample, execute `oc apply -f kuberay-cluster-example/ray-cluster.complete-py39-tf2_11_1-4Gi.yaml `.
 * Install Red Hat OpenShift AI (formerly known as Red Hat OpenShift Data Science) operator and create an instance. This operator will create several namespaces. The route to the UI, the RHOAI dashboard, is available under the `rhods-applications` namespace.
