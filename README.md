@@ -198,9 +198,40 @@ A number of nerual network based models (RNN, LSTM, CNN, Bidirectional LSTM, Aut
 ### RQ1 - How do different models perform in detecting point anomalies in an online setting?
 The results are summarized in the below table:
 
+|Model             | MAE   | MSE  | MAPE(%) | PCC  |
+|----              |:-----:|:----:|:-------:|:----:|
+|VARMA             | 0.0000|0.0000|0.0000   |0.0000|
+|RNN               | 0.0000|0.0000|0.0000   |0.0000|
+|LSTM              | 0.0000|0.0000|0.0000   |0.0000|
+|Bidirectional LSTM| 0.0000|0.0000|0.0000   |0.0000|
+|Autoencoded LSTM  | 0.0000|0.0000|0.0000   |0.0000|
+|CNN               | 0.0000|0.0000|0.0000   |0.0000|
+|ResNet            | 0.0000|0.0000|0.0000   |0.0000|
+
 ### RQ2 - What is the generalizability of the point anomaly detection model when system deployment setting changes?
 The results are summarized in the below table:
 
+|Model             | MAE   | MSE  | MAPE(%) | PCC  |
+|----              |:-----:|:----:|:-------:|:----:|
+|VARMA             | 0.0000|0.0000|0.0000   |0.0000|
+|RNN               | 0.0000|0.0000|0.0000   |0.0000|
+|LSTM              | 0.0000|0.0000|0.0000   |0.0000|
+|Bidirectional LSTM| 0.0000|0.0000|0.0000   |0.0000|
+|Autoencoded LSTM  | 0.0000|0.0000|0.0000   |0.0000|
+|CNN               | 0.0000|0.0000|0.0000   |0.0000|
+|ResNet            | 0.0000|0.0000|0.0000   |0.0000|
+
 ### RQ3 - How well can ETSAD forecast future trends?
 The results are summarized in the below table:
+
+|Model             | Max Forecast Steps (seconds)|
+|----              |:---------------------------:|
+|VARMA             | 0.0000                      |
+|RNN               | 0.0000                      |
+|LSTM              | 0.0000                      |
+|Bidirectional LSTM| 0.0000                      |
+|Autoencoded LSTM  | 0.0000                      |
+|CNN               | 0.0000                      |
+|ResNet            | 0.0000                      |
+
 
