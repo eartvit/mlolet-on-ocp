@@ -72,7 +72,7 @@ To start with the setup we shall install one by one the global operators:
 
 Now we are ready to create a new namespace where the synthetic data can be generated. In that namespace we shall add the remaining operators and deploy the Tekton pipeline that will generate data for the `ETSAD` experiments.
 
-## ETSAD Syntetic Data Creation
+## ETSAD Synthetic Data Creation
 As mentioned above, we shall create a namespace (OpenShift project) we call `demo` to setup the data generation environment and then execute to generate data. Please ensure you have a local copy of the GitHub repository of this project and the OpenShift command line tool (`oc`) on your computer before continuing with this section.
 
 Projects in OpenShift may be created using the web console, or the cli. If using the cli tool, run the following command to create the project:
