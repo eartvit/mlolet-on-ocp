@@ -186,7 +186,7 @@ The Red Hat OpenShift AI operator (formerly known Red Hat OpenShift Data Science
 
 Wait for the instance to deploy itself. Once this process has completed, upload the notebooks folder from this project. Since the baseline notebook image does not have all the dependencies, install them using the provided install_dependencies notebook.
 
-Now we are ready to perform the ETSAD modelling and collect the results.
+Now we are ready to perform the ETSAD modelling and collect the results (please ensure inside the notebooks you have the correct Ray and MLFlow endpoints configured).
 
 *Note: The ETSAD ML models experiments can also be performed outside of the RHOAI environment created for the RHOCP PaaS. We just need a python environment that has Ray version 2.6.3 and MLFlow version 2.9.2 available alongside the libraries required within the provided Jupyter notebooks. The TensorFlow library versions that have been verified to work with the provided notebooks were 2.11 and 2.15.*
 
