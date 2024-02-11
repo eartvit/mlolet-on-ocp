@@ -147,7 +147,7 @@ We also need to expose an endpoint to this instance so that other applications/t
 oc expose deployment influxdb --port=8086 --target-port=8086 --protocol=TCP --type=ClusterIP
 ```
 
-To control Tekton components (pipeline and taks) we shall use the tkn cli tool. The data generation process has been verified with version 0.30.1 of tkn cli. To install it, downloaded it from the its GitHub location provided below, unpack and move it somewhere in your $PATH variable:*
+To control Tekton components (pipeline and tasks) we shall use the tkn cli tool. The data generation process has been verified with version 0.30.1 of tkn cli. To install it, downloaded it from the its GitHub location provided below, unpack and move it somewhere in your $PATH variable:*
 
 ```bash
 curl -LO https://github.com/tektoncd/cli/releases/download/v0.30.1/tkn_0.30.1_Linux_x86_64.tar.gz
@@ -157,6 +157,8 @@ sudo tar xvzf tkn_0.30.1_Linux_x86_64.tar.gz -C /usr/local/bin/ tkn
 Now we are ready to generate synthetic data with the help of the `tkn-task-loop-run-sample.sh` script. Adjust the number or executions you want inside the script before launching it.
 
 *Note: the existing launch script uses a default configuration. If you want to generate data under different patterns you need to change the parameters passed onto the load generator and the test subject system, wiremock. The next sections provide details about these applications, hosted in separate repositories, referenced inside the respective sections.*
+
+*Note: For convenience purposes, some example synthetic data has been provided in the [notebooks/data](notebooks/data/) folder. Please note that this data is highly correlated with the machine details, hardware resources available to the OpenShift cluster and the configuration details for the data generation trials where the data generation pipeline has been executed.*
 
 ### Load Generator Application Details
 TBD.
