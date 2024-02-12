@@ -200,13 +200,13 @@ The results are summarized in the below table:
 
 |Model             | MAE   | MSE  | MAPE(%) | PCC  |
 |----              |:-----:|:----:|:-------:|:----:|
-|VARMA             | 0.0000|0.0000|0.0000   |0.0000|
-|RNN               | 0.0000|0.0000|0.0000   |0.0000|
-|LSTM              | 0.0000|0.0000|0.0000   |0.0000|
-|Bidirectional LSTM| 0.0000|0.0000|0.0000   |0.0000|
-|Autoencoded LSTM  | 0.0000|0.0000|0.0000   |0.0000|
-|CNN               | 0.0000|0.0000|0.0000   |0.0000|
-|ResNet            | 0.0000|0.0000|0.0000   |0.0000|
+|VARMA             | 0.0257|0.1410|14.222   |0.9216|
+|RNN               | 0.0058|0.0010|3.5584   |0.9888|
+|LSTM              | 0.0072|0.0010|3.4166   |0.9887|
+|Bidirectional LSTM| 0.0083|0.0010|6.0844   |0.9887|
+|Autoencoded LSTM  | 0.0078|0.0010|12.7623  |0.9890|
+|CNN               | 0.0086|0.0010|6.9289   |0.9894|
+|ResNet            | 0.0177|0.0013|55.3107  |0.9854|
 
 ### RQ2 - What is the generalizability of the point anomaly detection model when system deployment setting changes?
 The results are summarized in the below table:
@@ -226,12 +226,12 @@ The results are summarized in the below table:
 
 |Model             | Max Forecast Steps (seconds)|
 |----              |:---------------------------:|
-|VARMA             | 0.0000                      |
-|RNN               | 0.0000                      |
-|LSTM              | 0.0000                      |
-|Bidirectional LSTM| 0.0000                      |
-|Autoencoded LSTM  | 0.0000                      |
-|CNN               | 0.0000                      |
-|ResNet            | 0.0000                      |
+|VARMA             | 15                          |
+|RNN               | 30                          |
+|LSTM              | 30                          |
+|Bidirectional LSTM| 45                          |
+|Autoencoded LSTM  | 120                         |
+|CNN               | 15                          |
+|ResNet            | 10                          |
 
 
