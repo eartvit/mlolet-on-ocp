@@ -7,13 +7,60 @@ In order to execute the below guide, access to a Red Hat OpenShift environment i
 
 ## Foreword
 This repository contains the following:
+* ETSAD research questions related information:
+  * Example data used as input to train and verify the ML models.
+  * The ML models used to test the research questions.
+  * The summary of the results for the three research questions.
 * A quick guide for how to configure a Red Hat Openshift deployment to:
-  * Set up an environment for creating and collecting data required by the ETSAD experiments
-  * Set up an environment to execute the Machine Learning experiments (training and verfication)
-* ETSAD research question related information:
-  * Example data used as input to train and verify the ML models
-  * The ML models used to test the research questions
-  * The summary of the results for the three research questions
+  * Set up an environment for creating and collecting data required by the ETSAD experiments.
+  * Set up an environment to execute the Machine Learning experiments (training and verfication).
+
+## ETSAD Experiments Results
+This section provides the summary of the experiments results for the three research questions (RQ) formulated in the ETSAD paper. The results provided below are based on randomly generated syntethic data as described in a later section of this document. Only the best results have been collected and displayed in the RQ answers.
+
+A number of nerual network based models (RNN, LSTM, CNN, Bidirectional LSTM, Autoencoded LSTM and ResNet) have been tested and verfied. For baseline, we used a statistical model suitable in an online setting, namely VARMA.
+
+### RQ1 - How do different models perform in detecting point anomalies in an online setting?
+The results are summarized in the below table:
+
+|Model             | MAE   | MSE  | MAPE(%) | PCC  |
+|----              |:-----:|:----:|:-------:|:----:|
+|VARMA             | 0.0257|0.1410|14.222   |0.9216|
+|RNN               | 0.0058|0.0010|3.5584   |0.9888|
+|LSTM              | 0.0072|0.0010|3.4166   |0.9887|
+|Bidirectional LSTM| 0.0083|0.0010|6.0844   |0.9887|
+|Autoencoded LSTM  | 0.0078|0.0010|12.7623  |0.9890|
+|CNN               | 0.0086|0.0010|6.9289   |0.9894|
+|ResNet            | 0.0177|0.0013|55.3107  |0.9854|
+
+### RQ2 - What is the generalizability of the point anomaly detection model when system deployment setting changes?
+The results are summarized in the below table:
+
+|Model             | MAE   | MSE  | MAPE(%) | PCC  |
+|----              |:-----:|:----:|:-------:|:----:|
+|VARMA             | 0.0000|0.0000|0.0000   |0.0000|
+|RNN               | 0.0000|0.0000|0.0000   |0.0000|
+|LSTM              | 0.0000|0.0000|0.0000   |0.0000|
+|Bidirectional LSTM| 0.0000|0.0000|0.0000   |0.0000|
+|Autoencoded LSTM  | 0.0000|0.0000|0.0000   |0.0000|
+|CNN               | 0.0000|0.0000|0.0000   |0.0000|
+|ResNet            | 0.0000|0.0000|0.0000   |0.0000|
+
+### RQ3 - How well can ETSAD forecast future trends?
+The results are summarized in the below table:
+
+|Model             | Max Forecast Steps (seconds)|
+|----              |:---------------------------:|
+|VARMA             | 15                          |
+|RNN               | 30                          |
+|LSTM              | 30                          |
+|Bidirectional LSTM| 45                          |
+|Autoencoded LSTM  | 120                         |
+|CNN               | 15                          |
+|ResNet            | 10                          |
+
+
+For anyone interested in reproducing the experiments please follow the information in the next sections of this ReadMe. Additionally, a visual guide for setting up the environment is available [here]().
 
 ## What is Red Hat OpenShift
 
@@ -189,49 +236,5 @@ Wait for the instance to deploy itself. Once this process has completed, upload 
 Now we are ready to perform the ETSAD modelling and collect the results (please ensure inside the notebooks you have the correct Ray and MLFlow endpoints configured).
 
 *Note: The ETSAD ML models experiments can also be performed outside of the RHOAI environment created for the RHOCP PaaS. We just need a python environment that has Ray version 2.6.3 and MLFlow version 2.9.2 available alongside the libraries required within the provided Jupyter notebooks. The TensorFlow library versions that have been verified to work with the provided notebooks were 2.11 and 2.15.*
-
-## ETSAD Experiments Results
-This section provides the summary of the experiments results for the three research questions (RQ) formulated in the ETSAD paper. The results provided below are based on randomly generated syntethic data as described in an earlier section of this document. Only the best results have been collected and displayed in the RQ answers.
-
-A number of nerual network based models (RNN, LSTM, CNN, Bidirectional LSTM, Autoencoded LSTM and ResNet) have been tested and verfied. For baseline, we used a statistical model suitable in an online setting, namely VARMA.
-
-### RQ1 - How do different models perform in detecting point anomalies in an online setting?
-The results are summarized in the below table:
-
-|Model             | MAE   | MSE  | MAPE(%) | PCC  |
-|----              |:-----:|:----:|:-------:|:----:|
-|VARMA             | 0.0257|0.1410|14.222   |0.9216|
-|RNN               | 0.0058|0.0010|3.5584   |0.9888|
-|LSTM              | 0.0072|0.0010|3.4166   |0.9887|
-|Bidirectional LSTM| 0.0083|0.0010|6.0844   |0.9887|
-|Autoencoded LSTM  | 0.0078|0.0010|12.7623  |0.9890|
-|CNN               | 0.0086|0.0010|6.9289   |0.9894|
-|ResNet            | 0.0177|0.0013|55.3107  |0.9854|
-
-### RQ2 - What is the generalizability of the point anomaly detection model when system deployment setting changes?
-The results are summarized in the below table:
-
-|Model             | MAE   | MSE  | MAPE(%) | PCC  |
-|----              |:-----:|:----:|:-------:|:----:|
-|VARMA             | 0.0000|0.0000|0.0000   |0.0000|
-|RNN               | 0.0000|0.0000|0.0000   |0.0000|
-|LSTM              | 0.0000|0.0000|0.0000   |0.0000|
-|Bidirectional LSTM| 0.0000|0.0000|0.0000   |0.0000|
-|Autoencoded LSTM  | 0.0000|0.0000|0.0000   |0.0000|
-|CNN               | 0.0000|0.0000|0.0000   |0.0000|
-|ResNet            | 0.0000|0.0000|0.0000   |0.0000|
-
-### RQ3 - How well can ETSAD forecast future trends?
-The results are summarized in the below table:
-
-|Model             | Max Forecast Steps (seconds)|
-|----              |:---------------------------:|
-|VARMA             | 15                          |
-|RNN               | 30                          |
-|LSTM              | 30                          |
-|Bidirectional LSTM| 45                          |
-|Autoencoded LSTM  | 120                         |
-|CNN               | 15                          |
-|ResNet            | 10                          |
 
 
