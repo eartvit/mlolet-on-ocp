@@ -39,12 +39,12 @@ The results are summarized in the below table:
 |Model             | MAE   | MSE  | MAPE(%) | PCC  |
 |----              |:-----:|:----:|:-------:|:----:|
 |VARMA             | 0.0000|0.0000|0.0000   |0.0000|
-|RNN               | 0.0000|0.0000|0.0000   |0.0000|
-|LSTM              | 0.0000|0.0000|0.0000   |0.0000|
-|Bidirectional LSTM| 0.0000|0.0000|0.0000   |0.0000|
+|RNN               | 0.0690|0.0880|12.4745  |0.9529|
+|LSTM              | 0.0154|0.0037|4.7358   |0.9525|
+|Bidirectional LSTM| 0.0124|0.0038|3.8204   |0.9519|
 |Autoencoded LSTM  | 0.0000|0.0000|0.0000   |0.0000|
-|CNN               | 0.0000|0.0000|0.0000   |0.0000|
-|ResNet            | 0.0000|0.0000|0.0000   |0.0000|
+|CNN               | 0.0258|0.0044|8.5224   |0.9451|
+|ResNet            | 0.0751|0.0190|24.6865  |0.8659|
 
 ### RQ3 - How well can ETSAD forecast future trends?
 The results are summarized in the below table:
