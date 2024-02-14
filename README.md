@@ -42,7 +42,7 @@ The results are summarized in the below table:
 |RNN               | 0.0690|0.0880|12.4745  |0.9529|
 |LSTM              | 0.0154|0.0037|4.7358   |0.9525|
 |Bidirectional LSTM| 0.0124|0.0038|3.8204   |0.9519|
-|Autoencoded LSTM  | 0.0000|0.0000|0.0000   |0.0000|
+|Autoencoded LSTM  | 0.0129|0.0036|3.8595   |0.9528|
 |CNN               | 0.0258|0.0044|8.5224   |0.9451|
 |ResNet            | 0.0751|0.0190|24.6865  |0.8659|
 
