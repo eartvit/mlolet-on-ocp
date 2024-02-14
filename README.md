@@ -25,7 +25,7 @@ The results are summarized in the below table:
 
 |Model             | MAE   | MSE  | MAPE(%) | PCC  |
 |----              |:-----:|:----:|:-------:|:----:|
-|VARMA             | 0.0257|0.1410|14.222   |0.9216|
+|VARMA             | 0.0303|0.0236|26.6544  |0.9888|
 |RNN               | 0.0058|0.0010|3.5584   |0.9888|
 |LSTM              | 0.0072|0.0010|3.4166   |0.9887|
 |Bidirectional LSTM| 0.0083|0.0010|6.0844   |0.9887|
@@ -38,7 +38,7 @@ The results are summarized in the below table:
 
 |Model             | MAE   | MSE  | MAPE(%) | PCC  |
 |----              |:-----:|:----:|:-------:|:----:|
-|VARMA             | 0.0000|0.0000|0.0000   |0.0000|
+|VARMA             | 0.0401|0.0779|6.2584   |0.9613|
 |RNN               | 0.0690|0.0880|12.4745  |0.9529|
 |LSTM              | 0.0154|0.0037|4.7358   |0.9525|
 |Bidirectional LSTM| 0.0124|0.0038|3.8204   |0.9519|
@@ -60,7 +60,7 @@ The results are summarized in the below table:
 |ResNet            | 10                          |
 
 
-For anyone interested in reproducing the experiments please follow the information in the next sections of this ReadMe. Additionally, a visual guide for setting up the environment is available [here]().
+For anyone interested in reproducing the experiments please follow the information in the next sections of this ReadMe. Additionally, a visual guide for setting up the environment is available [here](https://youtu.be/vBsapUmQL6g).
 
 ## What is Red Hat OpenShift
 
