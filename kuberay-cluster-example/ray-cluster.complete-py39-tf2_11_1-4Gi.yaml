@@ -30,6 +30,19 @@ spec:
         containers:
         - name: ray-head
           image: "quay.io/avitui/ray2_6_3-py39-cpu-tf2_11_1:v1.1"
+          env:
+          - name: "TF_CPP_MIN_LOG_LEVEL"
+            value: "2"
+          - name: "RAY_IGNORE_UNHANDLED_ERRORS"
+            value: "1"
+          - name: "TUNE_DISABLE_STRICT_METRIC_CHECKING"
+            value: "1"
+          - name: "RAY_memory_monitor_refresh_ms"
+            value: "0"
+          - name: "RAY_TASK_MAX_RETRIES"
+            value: "3"
+          - name: "TUNE_PLACEMENT_GROUP_AUTO_DISABLED"
+            value: "1"
           ports:
           - containerPort: 6379
             name: gcs
@@ -90,6 +103,19 @@ spec:
         containers:
         - name: ray-worker
           image: "quay.io/avitui/ray2_6_3-py39-cpu-tf2_11_1:v1.1"
+          env:
+          - name: "TF_CPP_MIN_LOG_LEVEL"
+            value: "2"
+          - name: "RAY_IGNORE_UNHANDLED_ERRORS"
+            value: "1"
+          - name: "TUNE_DISABLE_STRICT_METRIC_CHECKING"
+            value: "1"
+          - name: "RAY_memory_monitor_refresh_ms"
+            value: "0"
+          - name: "RAY_TASK_MAX_RETRIES"
+            value: "3"
+          - name: "TUNE_PLACEMENT_GROUP_AUTO_DISABLED"
+            value: "1"
           lifecycle:
             preStop:
               exec:
