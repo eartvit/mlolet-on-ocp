@@ -216,7 +216,7 @@ The payload of the load generator is a randomly generated string, that may be of
 
 The source code and parameter list and description for this repository is available in [here](https://github.com/eartvit/load-generator/).
 
-A sample output collected by Prometheus and displayed in Grafan is depicted in the next diagram:
+A sample output collected by Prometheus and displayed in Grafana is depicted in the next diagram:
 ![load-generator](images/load-generator-sample.png)
 
 Here, we can see three different load generation processes recorded with different load generation settings. The information displayed here is reflecting how the test subject responded back to the load generator for the requests that have benn sent. We can see that the first load test has a significant number or problems as the throughput KPI drops to zero several times. For the second load, we only see a very small and brief drop in the throughput, where the third one does not present any anomalies. Noteworthy is the aspect that the above example uses a regularly paced out spike generation sequence.
