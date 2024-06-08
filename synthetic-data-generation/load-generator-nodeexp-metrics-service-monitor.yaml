@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: load-generator
+  name: load-generator-monitor
+  namespace: demo
+spec:
+  endpoints:
+    - interval: 5s
+      path: /metrics
+      port: 9090-tcp
+    - interval: 5s
+      path: /metrics
+      port: 9100-tcp
+  namespaceSelector:
+    matchNames:
+      - demo
+  selector:
+    matchLabels:
+      app: load-generator
