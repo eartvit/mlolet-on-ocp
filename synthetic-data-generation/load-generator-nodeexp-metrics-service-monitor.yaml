@@ -9,10 +9,10 @@ spec:
   endpoints:
     - interval: 5s
       path: /metrics
-      port: 9090-tcp
+      port: metrics-app
     - interval: 5s
       path: /metrics
-      port: 9100-tcp
+      port: metrics-node
   namespaceSelector:
     matchNames:
       - demo

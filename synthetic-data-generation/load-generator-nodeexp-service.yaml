@@ -7,11 +7,11 @@ metadata:
     app: load-generator
 spec:
   ports:
-    - name: 9090-tcp
+    - name: metrics-app
       protocol: TCP
       port: 9090
       targetPort: 9090
-    - name: 9100-tcp
+    - name: metrics-node
       protocol: TCP
       port: 9100
       targetPort: 9100

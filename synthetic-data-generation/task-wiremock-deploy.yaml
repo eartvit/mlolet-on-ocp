@@ -92,7 +92,7 @@ spec:
                         --limits=cpu=$(inputs.params.cpuLimit),memory=$(inputs.params.memoryLimit) \
                         --requests=cpu=$(inputs.params.cpuRequest),memory=$(inputs.params.memoryRequest) 
 
-            oc patch svc wiremock-metrics-$level -p '{"spec": {"ports": [{"name":"9090-tcp", "port": 9090, "targetPort": 9090}]}}'
+            oc patch svc wiremock-metrics-$level -p '{"spec": {"ports": [{"name":"metrics-app", "port": 9090, "targetPort": 9090}]}}'
 
           done
 
@@ -113,7 +113,7 @@ spec:
                       --requests=cpu=$(inputs.params.cpuRequest),memory=$(inputs.params.memoryRequest) \
 
           oc patch svc wiremock-metrics-$next_level -p '{"spec": {"ports": [{"name":
-          "9090-tcp", "port": 9090, "targetPort": 9090}]}}'
+          "metrics-app", "port": 9090, "targetPort": 9090}]}}'
 
         else
 
@@ -132,7 +132,7 @@ spec:
                         --requests=cpu=$(inputs.params.cpuRequest),memory=$(inputs.params.memoryRequest) 
 
             oc patch svc wiremock-metrics-1 -p '{"spec": {"ports": [{"name":
-            "9090-tcp", "port": 9090, "targetPort": 9090}]}}'
+            "metrics-app", "port": 9090, "targetPort": 9090}]}}'
 
         fi
         sleep 10

@@ -126,9 +126,9 @@ spec:
       image: 'quay.io/avitui/load-generator-nodeexp:v1'
       name: load-generator-task
       ports:
-        - name: 9090-tcp
+        - name: metrics-app
           containerPort: 9090
-        - name: 9100-tcp
+        - name: metrics-node
           containerPort: 9100
       resources:
         limits:
