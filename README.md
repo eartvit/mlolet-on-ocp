@@ -20,7 +20,7 @@ This section provides the summary of the experiments results for the three resea
 
 A number of nerual network based models (RNN, LSTM, CNN, Bidirectional LSTM, Autoencoded LSTM and ResNet) have been tested and verfied. For baseline, we used a statistical model suitable in an online setting, namely VARMA.
 
-### RQ1 - How do different models perform in detecting point anomalies in an online setting?
+### RQ1 - How do different models perform in detecting spikes in an online setting?
 The results are summarized in the below table:
 
 |Model             | MAE   | MSE  | MAPE(%) | PCC  |
@@ -33,7 +33,7 @@ The results are summarized in the below table:
 |CNN               | 0.0086|0.0010|6.9289   |0.9894|
 |ResNet            | 0.0177|0.0013|55.3107  |0.9854|
 
-### RQ2 - What is the generalizability of the point anomaly detection model when system deployment setting changes?
+### RQ2 - What is the generalizability of the spike detection model when system deployment settings change?
 The results are summarized in the below table:
 
 |Model             | MAE   | MSE  | MAPE(%) | PCC  |
@@ -46,7 +46,7 @@ The results are summarized in the below table:
 |CNN               | 0.0258|0.0044|8.5224   |0.9451|
 |ResNet            | 0.0751|0.0190|24.6865  |0.8659|
 
-### RQ3 - How well can MLOLET forecast future trends?
+### RQ3 - How far in time can MLOLET forecast future trends?
 The results are summarized in the below table:
 
 |Model             | Max Forecast Steps (seconds)|
