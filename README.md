@@ -60,7 +60,7 @@ The results are summarized in the below table:
 |ResNet            | 10                          |
 
 
-For anyone interested in reproducing the experiments please follow the information in the next sections of this ReadMe. Additionally, a visual guide for setting up the environment is available [here](https://youtu.be/vBsapUmQL6g).
+For anyone interested in reproducing the experiments please follow the information in the next sections of this ReadMe. Additionally, a visual guide for setting up the environment is available [here](https://youtu.be/Eh3azO9tRJw).
 
 ## What is Red Hat OpenShift
 
