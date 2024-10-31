@@ -1,7 +1,7 @@
 # MLOLET - Machine Learning Optimized Load and Endurance Testing
 This repository is the MLOLET paper experiments verification repository
 
-*Note: The paper is not yet published, however it has been accepted for publication at the [ASE2024 conference](https://conf.researchr.org/home/ase-2024). As soon as that process completes, publication details shall be added here.*
+*Note: The paper associated with this repository has been published at the [ASE2024 conference](https://conf.researchr.org/home/ase-2024). The link to the publication is [here](https://dl.acm.org/doi/epdf/10.1145/3691620.3695258).*
 
 In order to execute the below guide, access to a Red Hat OpenShift environment is required. If you don't have one, you can start a trial by creating an account at [RedHat Cloud website](https://cloud.redhat.com). Alternatively, it is also possible to execute the guide on a local (reduced version) of the platform, typically used for development purposes. Once you registered on the [RedHat Cloud website](https://cloud.redhat.com), you can obtain your version of the local Red Hat Openshift by downloading the installer from the [Console](https://console.redhat.com/openshift/create/local).
 
